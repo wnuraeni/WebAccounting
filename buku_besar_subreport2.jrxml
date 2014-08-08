@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buku_besar_subreport2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="675410f6-1fd4-4745-b566-c527634917fa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT jurnal.`kode_akun`,kode_akun.`nama_akun` FROM `jurnal`,`kode_akun` WHERE `tanggal` LIKE '2013%' AND jurnal.`kode_akun` LIKE '4%' OR jurnal.`kode_akun` LIKE '5%' OR jurnal.`kode_akun` LIKE '6%' GROUP BY jurnal.`kode_akun` ASC]]>
+	</queryString>
+	<field name="kode_akun" class="java.lang.String"/>
+	<field name="nama_akun" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="92" splitType="Stretch">
+			<textField>
+				<reportElement uuid="bbd72d96-67b0-42b6-9e47-11a9430c7bc8" x="10" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nama_akun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="babacf36-53bc-4e4d-b99f-f76a3e5955ba" x="445" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{kode_akun}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="fd421f97-0686-4e25-b2eb-a87e23162328" x="10" y="37" width="535" height="42"/>
+				<subreportParameter name="kode_akun 2"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\xampp\\htdocs\\laporan_keuangan\\buku_besar_subreport2_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
