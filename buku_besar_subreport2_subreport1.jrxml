@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buku_besar_subreport2_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0cffcf63-e754-4e60-999b-40c29264ed77">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="kode_akun 2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT j2.`tanggal` , j2.`keterangan`, j2.`bukti` , j2.`kode_akun`, j2.`debit` , j2.`kredit`
+FROM `jurnal`AS j1
+INNER JOIN `jurnal` AS j2 ON j1.`bukti` = j2.`bukti`
+WHERE j1.`kode_akun` LIKE '$P{kode_akun 2}%'
+AND j1.`tanggal` LIKE  '2013%'
+AND j2. `kode_akun` !=$P{kode_akun 2}]]>
+	</queryString>
+	<field name="tanggal" class="java.sql.Date"/>
+	<field name="keterangan" class="java.lang.String"/>
+	<field name="bukti" class="java.lang.String"/>
+	<field name="kode_akun" class="java.lang.String"/>
+	<field name="debit" class="java.lang.Integer"/>
+	<field name="kredit" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ec502100-6b37-4566-b101-eee1765d2e27" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[Tanggal]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c62f6ad7-ef1f-42ec-910f-2ae41bba9db5" x="353" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[Debit]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="874f5993-83cf-4a08-8389-ee58a6f4a788" x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[Keterangan]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0f97a5b9-0071-425f-80ac-d0fb1c09f239" x="453" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[Kredit]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement uuid="290fb775-233a-452c-9546-d8d47ccca6a4" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c5e1f050-1dc2-40d1-80b9-1d04f5ab098a" x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9061f9da-ef79-4506-815a-c7da1ab04c0c" x="353" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad03c32a-5202-48a6-a8db-e4d3b971cbf9" x="453" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{kredit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
