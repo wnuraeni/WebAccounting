@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jurnal_umum" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f74bf98f-53fd-44f1-82c8-954aa53bfc73">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tahun" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     jurnal.`tanggal` AS jurnal_tanggal,
+SUM(jurnal.`debit`) AS jurnal_debit,
+SUM(jurnal.`kredit`) AS jurnal_kredit
+FROM
+ `jurnal` jurnal
+WHERE
+  jurnal.`tanggal` LIKE '$P!{tahun}%'
+GROUP BY
+ jurnal.`tanggal`]]>
+	</queryString>
+	<field name="jurnal_tanggal" class="java.sql.Date"/>
+	<field name="jurnal_debit" class="java.math.BigDecimal"/>
+	<field name="jurnal_kredit" class="java.math.BigDecimal"/>
+	<variable name="subtotal_debit" class="java.lang.Integer" resetType="Group" resetGroup="jurnal_tanggal">
+		<variableExpression><![CDATA[$F{jurnal_debit}]]></variableExpression>
+	</variable>
+	<variable name="subtotal_kredit" class="java.lang.Integer" resetType="Group" resetGroup="jurnal_tanggal">
+		<variableExpression><![CDATA[$F{jurnal_kredit}]]></variableExpression>
+	</variable>
+	<group name="jurnal_tanggal">
+		<groupExpression><![CDATA[$F{jurnal_tanggal}]]></groupExpression>
+	</group>
+	<group name="transaksi">
+		<groupExpression><![CDATA[$F{jurnal_tanggal}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement uuid="912ec463-cb08-4689-8db2-f6c341c4d7c2" x="56" y="30" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{jurnal_tanggal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="7274a7b3-5c43-41d7-8a34-c4ffd3d66f15" x="0" y="30" width="46" height="20"/>
+					<textElement/>
+					<text><![CDATA[tanggal]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField>
+					<reportElement uuid="6e71a394-e67a-447c-8708-a88f7e7344be" x="472" y="0" width="83" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{jurnal_kredit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1a083737-b54b-47c2-84e9-8a5191fd471f" x="369" y="0" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{subtotal_debit}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="165" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8b673e55-e109-4863-86ae-5b71416e267b" x="216" y="11" width="153" height="51"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[ESFERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca684b57-b2ae-48f0-9be5-9b2368033279" x="114" y="62" width="373" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Gedung E lantai 2 No. 208
+Jalan Telekomunikasi 1, Terusan Buah Batu, Bandung
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7649fd09-2b80-43ae-b5d9-1fc4af4f8db8" x="240" y="117" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jurnal Umum]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b28ad672-6a11-4c4d-a0b8-9dfb17673e21" x="0" y="33" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50466b49-bfaf-4c4f-9494-43f39216669e" x="450" y="33" width="37" height="20"/>
+				<textElement/>
+				<text><![CDATA[page]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="80d0fe5a-dfbb-4ee1-9cfb-22b93f5d0545" x="499" y="33" width="20" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2456fbf4-3567-4117-ab46-8390ab341971" x="519" y="33" width="10" height="20"/>
+				<textElement/>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8ba90d86-974e-4371-b2ad-9e7a11fa0d93" x="539" y="33" width="16" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9807c0c6-f746-491b-897d-14ce4964124b" x="0" y="41" width="31" height="20"/>
+				<textElement/>
+				<text><![CDATA[Bukti]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf2c0e78-0c15-465c-b6a7-a34b93c01cd5" x="31" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nama Akun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="78dad7e9-f8c7-4564-83e7-2a6303d87f67" x="140" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca4eea3a-955c-4cc7-bd56-1da3492b9ffe" x="252" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kode Akun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ab367a79-2b34-4417-be10-0eaa6b4f15a4" x="369" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d67e16bb-3fef-4dbc-8086-33fd34063c1d" x="472" y="41" width="83" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kredit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="26de0e51-bc82-4c0d-a0c1-8e2a23fe9704" x="0" y="0" width="555" height="38"/>
+				<subreportParameter name="tanggal">
+					<subreportParameterExpression><![CDATA[$F{jurnal_tanggal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\xampp\\htdocs\\laporan_keuangan\\jurnal_umum_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

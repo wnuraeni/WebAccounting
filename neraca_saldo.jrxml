@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="neraca_saldo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc1776e8-cbab-4a86-8ff1-81da1771d9d3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT `kode_akun`.kode_akun, kode_akun.nama_akun, jurnal.keterangan,
+CASE
+WHEN kode_akun.saldo_normal = 'debit' THEN sum(jurnal.debit - jurnal.kredit)
+ELSE 0
+END AS debit,
+CASE
+WHEN kode_akun.saldo_normal = 'kredit' THEN SUM(jurnal.kredit - jurnal.debit)
+ELSE 0
+END AS kredit
+FROM kode_akun LEFT JOIN jurnal ON kode_akun.kode_akun = jurnal.kode_akun GROUP BY kode_akun.kode_akun]]>
+	</queryString>
+	<field name="kode_akun" class="java.lang.String"/>
+	<field name="nama_akun" class="java.lang.String"/>
+	<field name="keterangan" class="java.lang.String"/>
+	<field name="debit" class="java.math.BigDecimal"/>
+	<field name="kredit" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="168" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ca684b57-b2ae-48f0-9be5-9b2368033279" x="109" y="72" width="373" height="35"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Gedung E lantai 2 No. 208
+Jalan Telekomunikasi 1, Terusan Buah Batu, Bandung
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7649fd09-2b80-43ae-b5d9-1fc4af4f8db8" x="229" y="125" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Neraca Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b673e55-e109-4863-86ae-5b71416e267b" x="205" y="10" width="153" height="51"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[ESFERA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85466f74-f7f0-4241-a566-967b0d3f5e6f" x="9" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Dicetak tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3d302f10-5955-4197-bee4-8f29c3878566" x="432" y="4" width="30" height="20"/>
+				<textElement/>
+				<text><![CDATA[page]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e861328f-fa19-4ebe-a2c6-fef91f1e2b0e" x="497" y="4" width="21" height="20"/>
+				<textElement/>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8e5a95c2-c977-4c3e-82c1-527bfaf04f7c" x="518" y="4" width="27" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="43ade723-9334-4b1b-8289-218aed9d929a" x="481" y="4" width="16" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="21326b4c-4c0d-473f-966a-f0c634b970c6" x="9" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kode Akun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba3cc5a7-dbae-4f87-8936-b723d2e79994" x="109" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nama Akun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b6792032-8afd-4b55-829c-0cee879740db" x="332" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cefe03d7-fba2-4888-b7f0-d176d35f3cef" x="445" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Kredit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3ac0cb6e-c9c2-4a1c-8995-8e171a87b4df" x="9" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{kode_akun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3b3c2c5e-b71d-4e19-a284-25f478f07c31" x="109" y="11" width="96" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nama_akun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dba17770-3ef4-4c07-b6c7-f37e5432e8c2" x="332" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0d83b8ba-f7c5-4101-bcd0-1ec8c996b876" x="445" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{kredit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
